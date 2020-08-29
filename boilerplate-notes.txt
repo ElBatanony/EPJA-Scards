@@ -1,0 +1,12 @@
+To start project, run the following (make sure you have node first):
+npm i
+npm install -g npx
+
+To start the app (server):
+npm start
+or
+npm run start:nobrowser
+
+Note: Start your (npm) package name with "uds-", otherwise things won't work. For example "uds-myapp".
+
+Original code: https://bitbucket.org/jsadvance20201/main/src/master/
