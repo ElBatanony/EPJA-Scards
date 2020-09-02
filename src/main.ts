@@ -1,11 +1,9 @@
 
 import App from './app';
-
-export default() => App();
+export default App;
 
 export const mount = (Сomponent) => {
-    // console.log('Mounted');
-    Сomponent();
+    Сomponent.$mount('#app');
 };
 
 export const unmount = () => {

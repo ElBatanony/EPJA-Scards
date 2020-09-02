@@ -5,6 +5,11 @@ module.exports = {
   webpackConfig: {
     output: {
       publicPath: `/static/${pkg.name.replace('uds-', '')}/${pkg.version}/`
+    },
+    resolve: {
+      alias: {
+        'vue$': 'vue/dist/vue.esm.js'
+      }
     }
   },
   config: {
