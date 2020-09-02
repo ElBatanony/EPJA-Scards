@@ -1,10 +1,12 @@
 const pkg = require("./package.json");
 
+let pkgName = pkg.name.replace('uds-', '')
+
 module.exports = {
   apiPath: "stubs/api",
   webpackConfig: {
     output: {
-      publicPath: `/static/${pkg.name.replace('uds-', '')}/${pkg.version}/`
+      publicPath: `/static/${pkgName}/${pkg.version}/`
     },
     resolve: {
       alias: {
@@ -16,7 +18,7 @@ module.exports = {
     'main.api.base.url': '/api',
   },
   apps: {
-    boilerplateApp: { name: 'main', version: pkg.version }
+    scards: { name: pkgName, version: pkg.version }
   },
   features: {
     feature1: true,

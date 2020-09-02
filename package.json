@@ -1,7 +1,7 @@
 {
-  "name": "uds-boilerplate",
+  "name": "uds-scards",
   "version": "0.1.0",
-  "description": "Boilerplate project for EPJA",
+  "description": "Scards project for EPJA",
   "main": "./src/main.ts",
   "scripts": {
     "start": "cross-env VERSION=master ijl-cli --server --port=8099 --with-open-browser",
