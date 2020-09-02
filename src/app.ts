@@ -1,7 +1,17 @@
 import DataActions from '@main/__data__/actions/main';
 import Vue from 'vue';
+import { firestorePlugin } from 'vuefire';
+import firebase from 'firebase/app'
+import 'firebase/firestore'
 
 Vue.config.productionTip = false
+
+Vue.use(firestorePlugin);
+
+// Get a Firestore instance
+export const db = firebase
+  .initializeApp({ projectId: 'epja-scards' })
+  .firestore()
 
 const loadData = async () => {
   return DataActions();
@@ -18,5 +28,14 @@ export default new Vue({
   },
   mounted(){
     console.log('Mounted');
+
+    db.collection('scards')
+    .get()
+    .then(querySnapshot => {
+      const documents = querySnapshot.docs.map(doc => doc.data())
+      console.log(documents);
+      // do something with documents
+    })
+
   }
-});;
+});
