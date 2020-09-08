@@ -1,6 +1,6 @@
 {
   "name": "uds-scards",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Scards project for EPJA",
   "main": "./src/main.tsx",
   "scripts": {
