@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const router = require("express").Router();
 
-const scards = [{ q: "q1", a: "a1" }];
+var scards;
 
 router.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "http://89.223.91.151:8080");
@@ -18,16 +18,19 @@ const loadJson = (filepath, encoding = "utf8") =>
     fs.readFileSync(path.resolve(__dirname, `${filepath}.json`), { encoding })
   );
 
-router.get("/scards", (req, res) => {
+const returnScards = (res) =>
   setTimeout(() => {
     res.send(scards);
   }, 200);
+
+router.get("/scards", (req, res) => {
+  if (scards == null) scards = loadJson("./scardsData");
+  returnScards(res);
 });
 
-router.get("/getMainData", (req, res) => {
-  setTimeout(() => {
-    res.send(loadJson("./getMainData"));
-  }, 1000);
+router.delete("/scards/:id", function (req, res) {
+  scards = scards.filter((scard) => scard.id != req.params.id);
+  returnScards(res);
 });
 
 module.exports = router;

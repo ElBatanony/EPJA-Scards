@@ -1,24 +1,18 @@
 import React from "react";
-import { getScards } from "@main/__data__/actions/main";
-
-var scards = [];
+import Scards from "@main/components/Scards";
+import Container from "@material-ui/core/Container";
+import Box from "@material-ui/core/Box";
 
 const sum = (a, b) => a + b;
 export { sum };
 
-const displayScards = async () => {
-  scards = await getScards();
-  console.log("We got scards!");
-};
-
 export default () => {
-  displayScards();
   return (
-    <div>
-      <h1>Hello, world!</h1>
-      <div id="scards">
-        {scards.length == 0 ? "No Scards" : "We got Scards!"}
-      </div>
-    </div>
+    <Container maxWidth="sm">
+      <Box textAlign="center" fontSize="h2.fontSize" my={2}>
+        Welcome to Scards!
+      </Box>
+      <Scards></Scards>
+    </Container>
   );
 };
