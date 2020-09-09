@@ -15,17 +15,16 @@ const loadJson = (filepath, encoding = "utf8") =>
 
 scards = loadJson("./scardsData");
 
-const returnScards = (res) =>
-  setTimeout(() => {
-    res.send(scards);
-  }, 200);
+const delayAnswer = (req, res, next) => {
+  setTimeout(next, 300);
+};
 
-router.get(SCARDS_URL, (req, res) => {
+router.get(SCARDS_URL, delayAnswer, (req, res) => {
   if (scards == null) scards = loadJson("./scardsData");
-  returnScards(res);
+  res.send(scards);
 });
 
-router.post(SCARDS_URL, function (req, res) {
+router.post(SCARDS_URL, delayAnswer, function (req, res) {
   idCounter += 1;
   let newScard = {
     id: idCounter,
@@ -33,17 +32,15 @@ router.post(SCARDS_URL, function (req, res) {
     a: req.query.a,
   };
   scards.push(newScard);
-  returnScards(res);
+  res.send(scards);
 });
 
-router.get(`${SCARDS_URL}/:id`, function (req, res) {
+router.get(`${SCARDS_URL}/:id`, delayAnswer, function (req, res) {
   let scard = scards.filter((scard) => scard.id == req.params.id)[0] || {};
-  setTimeout(() => {
-    res.send(scard);
-  }, 200);
+  res.send(scard);
 });
 
-router.put(`${SCARDS_URL}/:id`, function (req, res) {
+router.put(`${SCARDS_URL}/:id`, delayAnswer, function (req, res) {
   let replacementScard = {
     q: req.query.q,
     a: req.query.a,
@@ -51,12 +48,12 @@ router.put(`${SCARDS_URL}/:id`, function (req, res) {
   scards = scards.map((scard) =>
     req.params.id != scard.id ? scard : { id: scard.id, ...replacementScard }
   );
-  returnScards(res);
+  res.send(scards);
 });
 
-router.delete(`${SCARDS_URL}/:id`, function (req, res) {
+router.delete(`${SCARDS_URL}/:id`, delayAnswer, function (req, res) {
   scards = scards.filter((scard) => scard.id != req.params.id);
-  returnScards(res);
+  res.send(scards);
 });
 
 module.exports = router;
