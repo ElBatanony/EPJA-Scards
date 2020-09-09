@@ -3,6 +3,10 @@ import { getScards } from "@main/__data__/actions/main";
 
 import Scard from "@main/components/Scard";
 
+import { Card } from "@uifabric/react-cards";
+
+import { Text } from "office-ui-fabric-react";
+
 interface ScardsProps {}
 
 interface ScardsState {
@@ -31,19 +35,20 @@ class Scards extends React.Component<ScardsProps, ScardsState> {
   };
 
   render() {
-    var scardsList = [];
-    if (this.state.scards)
-      scardsList = this.state.scards.map((scard) => (
-        <Scard key={scard.id} scard={scard} />
-      ));
     return (
-      <div>
+      <Card>
         {this.state.scards.length == 0 ? (
-          <h2>Loading ...</h2>
+          <Card.Item>
+            <Text>Loading ...</Text>
+          </Card.Item>
         ) : (
-          <div>{scardsList}</div>
+          this.state.scards.map((scard) => (
+            <Card.Section key={scard.id}>
+              <Scard scard={scard} />
+            </Card.Section>
+          ))
         )}
-      </div>
+      </Card>
     );
   }
 }

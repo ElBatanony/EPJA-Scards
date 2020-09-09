@@ -20,11 +20,13 @@
   },
   "license": "ISC",
   "dependencies": {
-    "@material-ui/core": "^4.11.0",
+    "@fluentui/react": "^7.135.0",
     "@types/react": "^16.9.49",
     "@types/react-dom": "^16.9.8",
+    "@uifabric/react-cards": "^0.112.5",
     "axios": "^0.20.0",
     "cross-env": "^7.0.2",
+    "office-ui-fabric-react": "^7.135.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },

@@ -1,18 +1,19 @@
 import React from "react";
 import Scards from "@main/components/Scards";
-import Container from "@material-ui/core/Container";
-import Box from "@material-ui/core/Box";
+import { Stack } from "@fluentui/react";
+import { Text } from "office-ui-fabric-react";
 
 const sum = (a, b) => a + b;
 export { sum };
 
 export default () => {
+  document.title = "EPJA Scards";
   return (
-    <Container maxWidth="sm">
-      <Box textAlign="center" fontSize="h2.fontSize" my={2}>
-        Welcome to Scards!
-      </Box>
-      <Scards></Scards>
-    </Container>
+    <Stack horizontalAlign="center" tokens={{ childrenGap: 5, padding: 10 }}>
+      <Stack.Item>
+        <Text variant="superLarge">Welcome to Scards!</Text>
+      </Stack.Item>
+      <Scards />
+    </Stack>
   );
 };
