@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { authHeader } from "@main/__data__/helpers/auth-header";
 import { getConfig } from "@ijl/cli";
 
-const mainApiBaseUrl = getConfig()["main.api.base.url"];
+const mainApiBaseUrl = getConfig()["scards.api.base"];
 
 const getData = async () => {
   // console.log('Starting Data Actions');
