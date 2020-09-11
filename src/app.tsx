@@ -13,6 +13,12 @@ export default () => {
       <Stack.Item>
         <Text variant="superLarge">Welcome to Scards!</Text>
       </Stack.Item>
+      <Stack.Item>
+        <Text variant="large">EPJA Project by Ahmed ElBatanony</Text>
+      </Stack.Item>
+      <Stack.Item>
+        <Text variant="medium">Scards = study card ;)</Text>
+      </Stack.Item>
       <Scards />
     </Stack>
   );
