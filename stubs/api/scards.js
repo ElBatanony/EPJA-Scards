@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const fs = require("fs");
 const path = require("path");
 
-const SCARDS_URL = "/scards";
+const SCARDS_URL = "/api/scards";
 let idCounter = 10;
 
 var scards;

@@ -1,0 +1,39 @@
+{
+  "flows": {
+    "welcomeFlow": {
+      "init": "question1",
+      "states": {
+        "question1": {
+          "events": {
+            "next": {
+              "newState": "question2"
+            },
+            "back": {
+              "newState": "question3"
+            }
+          }
+        },
+        "question2": {
+          "events": {
+            "next": {
+              "newState": "question3"
+            },
+            "back": {
+              "newState": "question1"
+            }
+          }
+        },
+        "question3": {
+          "events": {
+            "next": {
+              "newState": "question1"
+            },
+            "back": {
+              "newState": "question2"
+            }
+          }
+        }
+      }
+    }
+  }
+}
