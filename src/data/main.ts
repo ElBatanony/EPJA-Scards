@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
-import { authHeader } from "@main/__data__/helpers/auth-header";
+import { authHeader } from "@main/data/auth-header";
 import { getConfig } from "@ijl/cli";
 
 const mainApiBaseUrl = getConfig()["scards.api.base"];

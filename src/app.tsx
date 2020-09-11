@@ -2,6 +2,7 @@ import React from "react";
 import Scards from "@main/components/Scards";
 import { Stack } from "@fluentui/react";
 import { Text } from "office-ui-fabric-react";
+import Messages from "@main/components/Messages";
 
 const sum = (a, b) => a + b;
 export { sum };
@@ -19,6 +20,7 @@ export default () => {
       <Stack.Item>
         <Text variant="medium">Scards = study card ;)</Text>
       </Stack.Item>
+      <Messages />
       <Scards />
     </Stack>
   );

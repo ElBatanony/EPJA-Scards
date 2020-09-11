@@ -2,7 +2,7 @@ import React from "react";
 
 import { Stack, Text, PrimaryButton } from "office-ui-fabric-react";
 
-import { deleteScard } from "@main/__data__/actions/main";
+import { deleteScard } from "@main/data/main";
 
 export interface ScardProps {
   scard: {
@@ -37,11 +37,7 @@ class Scard extends React.Component<ScardProps, ScardState> {
           <div>
             <Text variant="medium">{this.props.scard.a}</Text>
           </div>
-          <PrimaryButton
-            text="Delete"
-            onClick={this.deleteScard}
-            allowDisabledFocus
-          />
+          <PrimaryButton text="Delete" onClick={this.deleteScard} />
         </Stack.Item>
       </Stack>
     );

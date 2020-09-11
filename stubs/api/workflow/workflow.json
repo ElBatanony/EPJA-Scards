@@ -1,35 +1,35 @@
 {
   "flows": {
     "welcomeFlow": {
-      "init": "question1",
+      "init": "message1",
       "states": {
-        "question1": {
+        "message1": {
           "events": {
             "next": {
-              "newState": "question2"
+              "newState": "message2"
             },
             "back": {
-              "newState": "question3"
+              "newState": "message3"
             }
           }
         },
-        "question2": {
+        "message2": {
           "events": {
             "next": {
-              "newState": "question3"
+              "newState": "message3"
             },
             "back": {
-              "newState": "question1"
+              "newState": "message1"
             }
           }
         },
-        "question3": {
+        "message3": {
           "events": {
             "next": {
-              "newState": "question1"
+              "newState": "message1"
             },
             "back": {
-              "newState": "question2"
+              "newState": "message2"
             }
           }
         }
