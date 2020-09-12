@@ -59,7 +59,7 @@ class Messages extends React.Component<MessagesProps, MessagesState> {
       <Stack>
         <Stack horizontal horizontalAlign="space-evenly" verticalAlign="center">
           <Stack.Item>
-            <DefaultButton text="Next Message" onClick={this.nextMessage} />
+            <DefaultButton text="Previous Message" onClick={this.prevMessage} />
           </Stack.Item>
           <Stack.Item>
             <Card horizontal tokens={{ padding: 25 }}>
@@ -69,7 +69,7 @@ class Messages extends React.Component<MessagesProps, MessagesState> {
             </Card>
           </Stack.Item>
           <Stack.Item>
-            <DefaultButton text="Previous Message" onClick={this.prevMessage} />
+            <DefaultButton text="Next Message" onClick={this.nextMessage} />
           </Stack.Item>
         </Stack>
       </Stack>

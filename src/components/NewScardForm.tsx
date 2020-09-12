@@ -27,6 +27,7 @@ class NewScardForm extends React.Component<
 
   addScard = () => {
     this.props.addScard(this.state.q, this.state.a);
+    this.setState({ q: "", a: "" });
   };
 
   updateQ = (event) => {
