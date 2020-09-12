@@ -1,8 +1,8 @@
 import React from "react";
 
 import { TextField } from "office-ui-fabric-react/lib/TextField";
-import { Card } from "@uifabric/react-cards";
-import { PrimaryButton } from "office-ui-fabric-react";
+import { Card, ICardItemTokens } from "@uifabric/react-cards";
+import { PrimaryButton, Stack } from "office-ui-fabric-react";
 
 export interface NewScardFormProps {
   addScard: any;
@@ -39,25 +39,27 @@ class NewScardForm extends React.Component<
 
   render() {
     return (
-      <Card>
-        <Card.Section>
-          <TextField
-            id="newScardQuestion"
-            label="Question"
-            value={this.state.q}
-            onChange={this.updateQ}
-          />
-          <TextField
-            id="newScardAnswer"
-            label="Answer"
-            multiline
-            rows={3}
-            value={this.state.a}
-            onChange={this.updateA}
-          />
-          <PrimaryButton text="Add Scard" onClick={this.addScard} />
-        </Card.Section>
-      </Card>
+      <Stack horizontalAlign="center">
+        <Card tokens={{ padding: 15 }}>
+          <Card.Section>
+            <TextField
+              id="newScardQuestion"
+              label="Question"
+              value={this.state.q}
+              onChange={this.updateQ}
+            />
+            <TextField
+              id="newScardAnswer"
+              label="Answer"
+              multiline
+              rows={3}
+              value={this.state.a}
+              onChange={this.updateA}
+            />
+            <PrimaryButton text="Add Scard" onClick={this.addScard} />
+          </Card.Section>
+        </Card>
+      </Stack>
     );
   }
 }

@@ -2,6 +2,8 @@ import React from "react";
 
 import { Stack, Text, PrimaryButton } from "office-ui-fabric-react";
 
+import { Card } from "@uifabric/react-cards";
+
 import { deleteScard } from "@main/data/main";
 
 export interface ScardProps {
@@ -29,17 +31,13 @@ class Scard extends React.Component<ScardProps, ScardState> {
 
   render() {
     return (
-      <Stack>
-        <Stack.Item>
-          <div>
-            <Text variant="xLarge">{this.props.scard.q}</Text>
-          </div>
-          <div>
-            <Text variant="medium">{this.props.scard.a}</Text>
-          </div>
+      <Card tokens={{ childrenMargin: 15 }}>
+        <Card.Section>
+          <Text variant="xLarge">{this.props.scard.q}</Text> <br />
+          <Text variant="medium">{this.props.scard.a}</Text> <br />
           <PrimaryButton text="Delete" onClick={this.deleteScard} />
-        </Stack.Item>
-      </Stack>
+        </Card.Section>
+      </Card>
     );
   }
 }

@@ -1,8 +1,9 @@
 import React from "react";
 import { initFlow, nextState, prevState } from "@main/data/workflow";
 
-import { Text, DefaultButton } from "office-ui-fabric-react";
+import { Text, DefaultButton, Stack } from "office-ui-fabric-react";
 import { Card } from "@uifabric/react-cards";
+import { DefaultPalette } from "office-ui-fabric-react/lib/Styling";
 
 export interface MessagesProps {}
 
@@ -15,6 +16,14 @@ const messages = {
   message1: "Welcome! This is message1",
   message2: "Hello there! This is 2",
   message3: "Adventerous, aren't we?",
+};
+
+const stackItemStyles = {
+  root: {
+    background: DefaultPalette.themePrimary,
+    color: DefaultPalette.white,
+    padding: 5,
+  },
 };
 
 class Messages extends React.Component<MessagesProps, MessagesState> {
@@ -47,13 +56,23 @@ class Messages extends React.Component<MessagesProps, MessagesState> {
 
   render() {
     return (
-      <Card>
-        <Card.Section>
-          <DefaultButton text="Next Message" onClick={this.nextMessage} />
-          <Text>{messages[this.state.message]}</Text>
-          <DefaultButton text="Previous Message" onClick={this.prevMessage} />
-        </Card.Section>
-      </Card>
+      <Stack>
+        <Stack horizontal horizontalAlign="space-evenly" verticalAlign="center">
+          <Stack.Item>
+            <DefaultButton text="Next Message" onClick={this.nextMessage} />
+          </Stack.Item>
+          <Stack.Item>
+            <Card horizontal tokens={{ padding: 25 }}>
+              <Card.Section fill grow>
+                <Text variant="large">{messages[this.state.message]}</Text>
+              </Card.Section>
+            </Card>
+          </Stack.Item>
+          <Stack.Item>
+            <DefaultButton text="Previous Message" onClick={this.prevMessage} />
+          </Stack.Item>
+        </Stack>
+      </Stack>
     );
   }
 }

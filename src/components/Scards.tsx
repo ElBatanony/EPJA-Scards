@@ -44,26 +44,35 @@ class Scards extends React.Component<ScardsProps, ScardsState> {
   };
 
   render() {
+    let scardsComps = (
+      <Stack
+        horizontal
+        wrap
+        horizontalAlign="center"
+        tokens={{ childrenGap: 10, padding: 10 }}
+      >
+        {this.state.scards.map((scard) => (
+          <Stack.Item>
+            <Scard
+              scard={scard}
+              key={scard.id}
+              updateScards={this.updateScards}
+            />
+          </Stack.Item>
+        ))}
+      </Stack>
+    );
+
     return (
-      <Stack>
+      <Stack tokens={{ childrenGap: 10, padding: 10 }}>
         <Stack.Item>
-          <Card>
-            {this.state.scards.length == 0 ? (
-              <Card.Item>
-                <Text>Loading ...</Text>
-              </Card.Item>
-            ) : (
-              this.state.scards.map((scard) => (
-                <Card.Section key={scard.id}>
-                  <Scard scard={scard} updateScards={this.updateScards} />
-                </Card.Section>
-              ))
-            )}
-          </Card>
+          {this.state.scards.length == 0 ? (
+            <Text>Loading ...</Text>
+          ) : (
+            scardsComps
+          )}
         </Stack.Item>
-        <Stack.Item>
-          <NewScardForm addScard={this.addScard} />
-        </Stack.Item>
+        <NewScardForm addScard={this.addScard} />
       </Stack>
     );
   }
