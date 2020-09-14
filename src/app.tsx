@@ -5,6 +5,14 @@ import { Stack } from "@fluentui/react";
 import TitleBar from "@main/components/TitleBar";
 import Messages from "@main/components/Messages";
 import Scards from "@main/components/Scards";
+import ScardPage from "@main/components/ScardPage";
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useParams,
+} from "react-router-dom";
 
 const sum = (a, b) => a + b;
 export { sum };
@@ -15,7 +23,19 @@ export default () => {
     <Stack tokens={{ childrenGap: 15, padding: 15 }}>
       <TitleBar />
       <Messages />
-      <Scards />
+      <Router>
+        <Switch>
+          <Route path="/scards/:id" children={<ScardPageRoute />} />
+          <Route path="/">
+            <Scards />
+          </Route>
+        </Switch>
+      </Router>
     </Stack>
   );
 };
+
+function ScardPageRoute() {
+  let { id } = useParams();
+  return <ScardPage scardId={id}></ScardPage>;
+}

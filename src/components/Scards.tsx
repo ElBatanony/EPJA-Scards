@@ -52,12 +52,8 @@ class Scards extends React.Component<ScardsProps, ScardsState> {
         tokens={{ childrenGap: 10, padding: 10 }}
       >
         {this.state.scards.map((scard) => (
-          <Stack.Item>
-            <Scard
-              scard={scard}
-              key={scard.id}
-              updateScards={this.updateScards}
-            />
+          <Stack.Item key={scard.id}>
+            <Scard scard={scard} updateScards={this.updateScards} />
           </Stack.Item>
         ))}
       </Stack>

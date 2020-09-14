@@ -39,6 +39,14 @@ const getScards = async () => {
   return answer.data as Array<any>;
 };
 
+const getScard = async (scardId) => {
+  const answer: AxiosResponse = await axios(
+    `${mainApiBaseUrl}/scards/${scardId}`
+  );
+  console.log(answer.data);
+  return answer.data;
+};
+
 const deleteScard = async (scardId) => {
   const answer: AxiosResponse = await axios.delete(
     `${mainApiBaseUrl}/scards/${scardId}`
@@ -54,4 +62,4 @@ const addScard = async (q, a) => {
   return answer.data as Array<any>;
 };
 
-export { getData, getScards, deleteScard, addScard };
+export { getData, getScards, getScard, deleteScard, addScard };
