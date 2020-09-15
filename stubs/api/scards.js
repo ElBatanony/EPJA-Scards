@@ -46,9 +46,10 @@ router.get(`${SCARDS_URL}/:id`, delayAnswer, function (req, res) {
 });
 
 router.put(`${SCARDS_URL}/:id`, delayAnswer, function (req, res) {
+  console.log("Editing scard", req.body);
   let replacementScard = {
-    q: req.query.q,
-    a: req.query.a,
+    q: req.body.q,
+    a: req.body.a,
   };
   scards = scards.map((scard) =>
     req.params.id != scard.id ? scard : { id: scard.id, ...replacementScard }

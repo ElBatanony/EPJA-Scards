@@ -3,8 +3,6 @@ import { getScards, addScard } from "@main/data/main";
 
 import Scard from "@main/components/Scard";
 
-import { Card } from "@uifabric/react-cards";
-
 import { Stack, Text } from "office-ui-fabric-react";
 
 import NewScardForm from "@main/components/NewScardForm";

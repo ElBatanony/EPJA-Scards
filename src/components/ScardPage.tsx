@@ -33,10 +33,6 @@ class ScardPage extends React.Component<ScardPageProps, ScardPageState> {
     console.log("We got the scard!");
   };
 
-  goBack = () => {
-    console.log("I do nothing for now");
-  };
-
   render() {
     let id = this.props.scardId;
     return (
@@ -45,7 +41,11 @@ class ScardPage extends React.Component<ScardPageProps, ScardPageState> {
           <DefaultButton text="Back" />
         </Link>
         {this.state.scard != null && (
-          <Scard scard={this.state.scard} updateScards={this.goBack} />
+          <Scard
+            scard={this.state.scard}
+            updateScards={this.getScard}
+            inScardPage={true}
+          />
         )}
       </div>
     );
