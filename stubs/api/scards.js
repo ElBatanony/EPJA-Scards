@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const { query } = require("express");
 const fs = require("fs");
 const path = require("path");
+const { v4: uuidv4 } = require("uuid");
 
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
@@ -29,10 +30,9 @@ router.get(SCARDS_URL, delayAnswer, (req, res) => {
 });
 
 router.post(SCARDS_URL, delayAnswer, function (req, res) {
-  idCounter += 1;
   console.log("Adding new Scard", req.body);
   let newScard = {
-    id: idCounter,
+    id: uuidv4(),
     q: req.body.q,
     a: req.body.a,
   };

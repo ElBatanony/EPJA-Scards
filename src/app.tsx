@@ -13,6 +13,7 @@ import {
   Route,
   useParams,
 } from "react-router-dom";
+import StudyNotes from "./components/StudyNotes";
 
 const sum = (a, b) => a + b;
 export { sum };
@@ -23,6 +24,7 @@ export default () => {
     <Stack tokens={{ childrenGap: 15, padding: 15 }}>
       <TitleBar />
       <Messages />
+      <StudyNotes />
       <Router>
         <Switch>
           <Route path="/scards/:id" children={<ScardPageRoute />} />

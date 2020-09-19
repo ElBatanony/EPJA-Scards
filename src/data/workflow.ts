@@ -1,13 +1,12 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { getConfig } from "@ijl/cli";
+import { setSessionId, getSessionId } from "./sessions";
 
 const mainApiBaseUrl = getConfig()["scards.api.base"];
 
-var sessionId;
-
 const callFlow = async (cmd, name, data) => {
   let url = `${mainApiBaseUrl}/workflow?cmd=${cmd}&name=${name}`;
-  if (sessionId) url += `&sessionId=${sessionId}`;
+  if (getSessionId()) url += `&sessionId=${getSessionId()}`;
   const answer = await axios.get(url);
   return answer;
 };
@@ -15,7 +14,7 @@ const callFlow = async (cmd, name, data) => {
 const initFlow = async (flowName) => {
   const answer = await callFlow("start", flowName, null);
   console.log(answer.data);
-  sessionId = answer.data.sessionId!;
+  setSessionId(answer.data.sessionId!);
   return answer.data;
 };
 
@@ -31,6 +30,4 @@ const prevState = async () => {
   return answer.data;
 };
 
-const getSessionId = () => sessionId;
-
-export { initFlow, nextState, prevState, getSessionId };
+export { initFlow, nextState, prevState };

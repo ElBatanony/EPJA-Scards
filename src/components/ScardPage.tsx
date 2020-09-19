@@ -30,14 +30,14 @@ class ScardPage extends React.Component<ScardPageProps, ScardPageState> {
     this.setState({
       scard: scardRet,
     });
-    console.log("We got the scard!");
+    console.log("We got the scard!", this.state.scard);
   };
 
   render() {
     let id = this.props.scardId;
     return (
       <div>
-        <Link to="/">
+        <Link to="/scards">
           <DefaultButton text="Back" />
         </Link>
         {this.state.scard != null && (
