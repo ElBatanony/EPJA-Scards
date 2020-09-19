@@ -24,7 +24,7 @@ export default () => {
     <Stack tokens={{ childrenGap: 15, padding: 15 }}>
       <TitleBar />
       <Messages />
-      <StudyNotes />
+
       <Router>
         <Switch>
           <Route path="/scards/:id" children={<ScardPageRoute />} />
@@ -33,6 +33,7 @@ export default () => {
           </Route>
         </Switch>
       </Router>
+      <StudyNotes />
     </Stack>
   );
 };

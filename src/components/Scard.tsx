@@ -16,6 +16,7 @@ import { Card } from "@uifabric/react-cards";
 import { deleteScard, editScard } from "@main/data/main";
 
 import { Link, Redirect } from "react-router-dom";
+import ScardDialogForm from "./ScardDialogForm";
 
 export interface ScardProps {
   scard: {
@@ -29,17 +30,15 @@ export interface ScardProps {
 
 export interface ScardState {
   editDialogHidden: boolean;
-  newQ: string;
-  newA: string;
   inScardPage: boolean;
   redirectToScardPage?: boolean;
+  redirectToHomepage?: boolean;
 }
 
-const dialogContentProps = {
+const EditDialogContentProps = {
   type: DialogType.normal,
   title: "Edit Scard",
   closeButtonAriaLabel: "Close",
-  // subText: "Do you want to send this message without a subject?",
 };
 
 class Scard extends React.Component<ScardProps, ScardState> {
@@ -47,8 +46,6 @@ class Scard extends React.Component<ScardProps, ScardState> {
     super(props);
     this.state = {
       editDialogHidden: true,
-      newQ: this.props.scard.q,
-      newA: this.props.scard.a,
       inScardPage: this.props.inScardPage ?? false,
     };
   }
@@ -59,25 +56,17 @@ class Scard extends React.Component<ScardProps, ScardState> {
     }));
   };
 
-  deleteScard = () => {
+  deleteScard = async () => {
     console.log("Deleting scard", this.props.scard.id);
-    deleteScard(this.props.scard.id);
-    this.props.updateScards();
+    await deleteScard(this.props.scard.id);
+    this.goToHomepage();
+    //this.props.updateScards();
   };
 
-  editScard = async () => {
+  editScard = async (newQ, newA) => {
     console.log("Editing scard", this.props.scard.id);
-    await editScard(this.props.scard.id, this.state.newQ, this.state.newA);
-    this.toggleEditDialog();
+    await editScard(this.props.scard.id, newQ, newA);
     this.props.updateScards();
-  };
-
-  updateQ = (event) => {
-    this.setState({ newQ: event.target.value });
-  };
-
-  updateA = (event) => {
-    this.setState({ newA: event.target.value });
   };
 
   goToScardPage = () => {
@@ -85,11 +74,19 @@ class Scard extends React.Component<ScardProps, ScardState> {
     this.setState({ redirectToScardPage: true });
   };
 
+  goToHomepage = () => {
+    this.setState({ redirectToHomepage: true });
+  };
+
   render() {
     let scardUrl = "/scards/" + this.props.scard.id;
 
     if (this.state.redirectToScardPage) {
       return <Redirect push to={scardUrl} />;
+    }
+
+    if (this.state.redirectToHomepage) {
+      return <Redirect push to="/scards" />;
     }
 
     return (
@@ -106,31 +103,13 @@ class Scard extends React.Component<ScardProps, ScardState> {
             )}
           </Card.Section>
         </Card>
-
-        <Dialog
+        <ScardDialogForm
           hidden={this.state.editDialogHidden}
-          onDismiss={this.toggleEditDialog}
-          dialogContentProps={dialogContentProps}
-        >
-          <TextField
-            id="newScardQuestion"
-            label="Question"
-            value={this.state.newQ}
-            onChange={this.updateQ}
-          />
-          <TextField
-            id="newScardAnswer"
-            label="Answer"
-            multiline
-            rows={3}
-            value={this.state.newA}
-            onChange={this.updateA}
-          />
-          <DialogFooter>
-            <PrimaryButton onClick={this.editScard} text="Save" />
-            <DefaultButton onClick={this.toggleEditDialog} text="Cancel" />
-          </DialogFooter>
-        </Dialog>
+          scard={this.props.scard}
+          dialogContentProps={EditDialogContentProps}
+          toggleDialog={this.toggleEditDialog}
+          action={this.editScard}
+        />
       </>
     );
   }
