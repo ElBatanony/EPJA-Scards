@@ -5,6 +5,9 @@ import {
   PrimaryButton,
   DefaultButton,
   TextField,
+  Dialog,
+  DialogType,
+  DialogFooter,
 } from "office-ui-fabric-react";
 
 import { Card } from "@uifabric/react-cards";
@@ -12,12 +15,6 @@ import { Card } from "@uifabric/react-cards";
 import { deleteScard, editScard } from "@main/data/main";
 
 import { Link } from "react-router-dom";
-
-import {
-  Dialog,
-  DialogType,
-  DialogFooter,
-} from "office-ui-fabric-react/lib/Dialog";
 
 export interface ScardProps {
   scard: {

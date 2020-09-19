@@ -1,9 +1,13 @@
 import React from "react";
 import { initFlow, nextState, prevState } from "@main/data/workflow";
 
-import { Text, DefaultButton, Stack } from "office-ui-fabric-react";
+import {
+  Text,
+  DefaultButton,
+  Stack,
+  DefaultPalette,
+} from "office-ui-fabric-react";
 import { Card } from "@uifabric/react-cards";
-import { DefaultPalette } from "office-ui-fabric-react/lib/Styling";
 
 export interface MessagesProps {}
 

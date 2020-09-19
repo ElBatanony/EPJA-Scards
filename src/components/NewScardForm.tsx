@@ -1,8 +1,7 @@
 import React from "react";
 
-import { TextField } from "office-ui-fabric-react/lib/TextField";
-import { Card, ICardItemTokens } from "@uifabric/react-cards";
-import { PrimaryButton, Stack } from "office-ui-fabric-react";
+import { TextField, PrimaryButton, Stack } from "office-ui-fabric-react";
+import { Card } from "@uifabric/react-cards";
 
 export interface NewScardFormProps {
   addScard: any;
