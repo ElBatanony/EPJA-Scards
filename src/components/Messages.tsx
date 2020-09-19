@@ -13,6 +13,7 @@ export interface MessagesProps {}
 
 export interface MessagesState {
   message?: string;
+  sessionId?: string;
 }
 
 const messages = {
@@ -41,18 +42,19 @@ class Messages extends React.Component<MessagesProps, MessagesState> {
     const initState = await initFlow("welcomeFlow");
     this.setState({
       message: initState.stateName,
+      sessionId: initState.sessionId,
     });
   };
 
   nextMessage = async () => {
-    const newState = await nextState();
+    const newState = await nextState(this.state.sessionId);
     this.setState({
       message: newState.stateName,
     });
   };
 
   prevMessage = async () => {
-    const newState = await prevState();
+    const newState = await prevState(this.state.sessionId);
     this.setState({
       message: newState.stateName,
     });
