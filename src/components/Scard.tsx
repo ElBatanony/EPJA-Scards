@@ -8,13 +8,14 @@ import {
   Dialog,
   DialogType,
   DialogFooter,
+  Stack,
 } from "office-ui-fabric-react";
 
 import { Card } from "@uifabric/react-cards";
 
 import { deleteScard, editScard } from "@main/data/main";
 
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 export interface ScardProps {
   scard: {
@@ -31,6 +32,7 @@ export interface ScardState {
   newQ: string;
   newA: string;
   inScardPage: boolean;
+  redirectToScardPage?: boolean;
 }
 
 const dialogContentProps = {
@@ -78,21 +80,30 @@ class Scard extends React.Component<ScardProps, ScardState> {
     this.setState({ newA: event.target.value });
   };
 
+  goToScardPage = () => {
+    if (this.state.inScardPage) return;
+    this.setState({ redirectToScardPage: true });
+  };
+
   render() {
     let scardUrl = "/scards/" + this.props.scard.id;
+
+    if (this.state.redirectToScardPage) {
+      return <Redirect push to={scardUrl} />;
+    }
+
     return (
       <>
-        <Card tokens={{ childrenMargin: 15 }}>
+        <Card tokens={{ childrenMargin: 15 }} onClick={this.goToScardPage}>
           <Card.Section horizontalAlign="stretch">
             <Text variant="xLarge">{this.props.scard.q}</Text> <br />
             <Text variant="medium">{this.props.scard.a}</Text> <br />
-            {this.state.inScardPage == false && (
-              <Link to={scardUrl}>
-                <PrimaryButton text="Open" />
-              </Link>
+            {this.state.inScardPage == true && (
+              <>
+                <PrimaryButton text="Edit" onClick={this.toggleEditDialog} />
+                <PrimaryButton text="Delete" onClick={this.deleteScard} />
+              </>
             )}
-            <PrimaryButton text="Edit" onClick={this.toggleEditDialog} />
-            <PrimaryButton text="Delete" onClick={this.deleteScard} />
           </Card.Section>
         </Card>
 
