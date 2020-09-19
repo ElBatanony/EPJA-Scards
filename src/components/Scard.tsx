@@ -19,7 +19,7 @@ import { Link, Redirect } from "react-router-dom";
 
 export interface ScardProps {
   scard: {
-    id: number;
+    id: string;
     q: string;
     a: string;
   };
