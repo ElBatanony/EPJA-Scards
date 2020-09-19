@@ -1,6 +1,14 @@
 const router = require("express").Router();
 const workflow = require("./workflow.json");
 
+function getSession(req) {
+  return req.session;
+}
+
+function setSessionWorflow(req, workflow) {
+  getSession(req).workflow = workflow;
+}
+
 router.get("/api/workflow", (req, res) => {
   const { cmd, name, data } = req.query;
   console.log(cmd, name, data);
@@ -8,17 +16,17 @@ router.get("/api/workflow", (req, res) => {
     stateName;
   if (cmd == "start") stateName = workflow.flows[flowName].init;
   if (cmd == "event") {
-    flowName = req.session.workflow.flowName;
+    let session = getSession(req);
+    flowName = session.workflow.flowName;
     stateName =
-      workflow.flows[flowName].states[req.session.workflow.stateName].events[
-        name
-      ].newState;
+      workflow.flows[flowName].states[session.workflow.stateName].events[name]
+        .newState;
   }
 
-  req.session.workflow = {
+  setSessionWorflow(req, {
     flowName,
     stateName,
-  };
+  });
   res.send({ flowName, stateName });
 });
 
