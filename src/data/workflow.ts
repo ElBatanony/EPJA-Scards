@@ -8,13 +8,13 @@ const callFlow = async (cmd, name, data) => {
   let url = `${mainApiBaseUrl}/workflow?cmd=${cmd}&name=${name}`;
   if (getSessionId()) url += `&sessionId=${getSessionId()}`;
   const answer = await axios.get(url);
+  setSessionId(answer.data.sessionId!);
   return answer;
 };
 
 const initFlow = async (flowName) => {
   const answer = await callFlow("start", flowName, null);
   console.log(answer.data);
-  setSessionId(answer.data.sessionId!);
   return answer.data;
 };
 

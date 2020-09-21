@@ -1,9 +1,11 @@
-var sessionId;
-
 const setSessionId = (newSessionId) => {
-  sessionId = newSessionId;
+  localStorage.setItem("sessionId", newSessionId);
 };
 
-const getSessionId = () => sessionId;
+const getSessionId = () => {
+  let ret = localStorage.getItem("sessionId");
+  if (ret == "") ret = null;
+  return ret;
+};
 
 export { setSessionId, getSessionId };

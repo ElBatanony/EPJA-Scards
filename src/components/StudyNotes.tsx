@@ -19,6 +19,7 @@ class StudyNotes extends React.Component<StudyNotesProps, StudyNotesState> {
   constructor(props: StudyNotesProps) {
     super(props);
     this.state = { txt: "" };
+    this.loadStudyNotes();
   }
 
   updateNotes = (event) => {
