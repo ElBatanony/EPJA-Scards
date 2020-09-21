@@ -1,7 +1,6 @@
 import React from "react";
 import { Stack } from "@fluentui/react";
 import { Text } from "office-ui-fabric-react";
-import { Card } from "@uifabric/react-cards";
 
 export interface TitleBarProps {}
 

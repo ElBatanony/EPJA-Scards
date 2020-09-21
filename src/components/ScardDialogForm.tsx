@@ -1,3 +1,5 @@
+import React from "react";
+
 import {
   DefaultButton,
   Dialog,
@@ -5,7 +7,6 @@ import {
   PrimaryButton,
   TextField,
 } from "@fluentui/react";
-import * as React from "react";
 
 export interface ScardDialogFormProps {
   hidden: boolean;

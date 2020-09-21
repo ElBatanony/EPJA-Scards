@@ -1,21 +1,12 @@
 import React from "react";
 
-import {
-  Text,
-  PrimaryButton,
-  DefaultButton,
-  TextField,
-  Dialog,
-  DialogType,
-  DialogFooter,
-  Stack,
-} from "office-ui-fabric-react";
+import { Text, PrimaryButton, DialogType } from "office-ui-fabric-react";
 
 import { Card } from "@uifabric/react-cards";
 
 import { deleteScard, editScard } from "@main/data/main";
 
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import ScardDialogForm from "./ScardDialogForm";
 
 export interface ScardProps {

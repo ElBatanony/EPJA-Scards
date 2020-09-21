@@ -7,7 +7,11 @@ const {
   setSessionWorkflow,
 } = require("./../sessions");
 
-router.get("/api/workflow", async (req, res) => {
+const delayAnswer = (req, res, next) => {
+  setTimeout(next, 300);
+};
+
+router.get("/api/workflow", delayAnswer, async (req, res) => {
   const { cmd, name, data } = req.query;
   let sessionId = req.query.sessionId;
   if (sessionId === undefined) {

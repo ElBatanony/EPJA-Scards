@@ -2,7 +2,7 @@ import React from "react";
 
 import { getScard } from "@main/data/main";
 
-import { DefaultButton, Stack } from "@fluentui/react";
+import { DefaultButton, Spinner, Stack } from "@fluentui/react";
 
 import { Link } from "react-router-dom";
 import Scard from "./Scard";
@@ -39,12 +39,14 @@ class ScardPage extends React.Component<ScardPageProps, ScardPageState> {
     return (
       <Stack horizontalAlign="center" tokens={{ childrenGap: 10 }}>
         <Stack.Item>
-          {this.state.scard != null && (
+          {this.state.scard != null ? (
             <Scard
               scard={this.state.scard}
               updateScards={this.getScard}
               inScardPage={true}
             />
+          ) : (
+            <Spinner size={3} />
           )}
         </Stack.Item>
         <Stack.Item>

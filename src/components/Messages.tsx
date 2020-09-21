@@ -6,6 +6,7 @@ import {
   DefaultButton,
   Stack,
   DefaultPalette,
+  Spinner,
 } from "office-ui-fabric-react";
 import { Card } from "@uifabric/react-cards";
 
@@ -16,7 +17,6 @@ export interface MessagesState {
 }
 
 const messages = {
-  loading: "Loading messages",
   message1: "Welcome! This is message1",
   message2: "Hello there! This is 2",
   message3: "Adventerous, aren't we?",
@@ -33,7 +33,7 @@ const stackItemStyles = {
 class Messages extends React.Component<MessagesProps, MessagesState> {
   constructor(props: MessagesProps) {
     super(props);
-    this.state = { message: "loading" };
+    this.state = {};
     this.initMessages();
   }
 
@@ -45,6 +45,9 @@ class Messages extends React.Component<MessagesProps, MessagesState> {
   };
 
   nextMessage = async () => {
+    this.setState({
+      message: null,
+    });
     const newState = await nextState();
     this.setState({
       message: newState.stateName,
@@ -52,6 +55,9 @@ class Messages extends React.Component<MessagesProps, MessagesState> {
   };
 
   prevMessage = async () => {
+    this.setState({
+      message: null,
+    });
     const newState = await prevState();
     this.setState({
       message: newState.stateName,
@@ -68,7 +74,11 @@ class Messages extends React.Component<MessagesProps, MessagesState> {
           <Stack.Item>
             <Card horizontal tokens={{ padding: 25 }}>
               <Card.Section fill grow>
-                <Text variant="large">{messages[this.state.message]}</Text>
+                {this.state.message == undefined ? (
+                  <Spinner size={3} />
+                ) : (
+                  <Text variant="large">{messages[this.state.message]}</Text>
+                )}
               </Card.Section>
             </Card>
           </Stack.Item>

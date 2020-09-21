@@ -7,7 +7,11 @@ const {
   setSessionStudyNotes,
 } = require("./sessions");
 
-router.get(STUDY_NOTES_URL, async (req, res) => {
+const delayAnswer = (req, res, next) => {
+  setTimeout(next, 300);
+};
+
+router.get(STUDY_NOTES_URL, delayAnswer, async (req, res) => {
   let sessionId = req.query.sessionId;
   console.log("Session id we have ", sessionId);
   if (sessionId === undefined) sessionId = await createSession();
@@ -15,7 +19,7 @@ router.get(STUDY_NOTES_URL, async (req, res) => {
   res.send({ studyNotes: session.studyNotes, sessionId });
 });
 
-router.post(STUDY_NOTES_URL, async (req, res) => {
+router.post(STUDY_NOTES_URL, delayAnswer, async (req, res) => {
   let sessionId = req.query.sessionId;
   console.log("Session id we have ", sessionId);
   if (sessionId === undefined) sessionId = await createSession();

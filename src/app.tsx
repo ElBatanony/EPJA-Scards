@@ -24,7 +24,6 @@ export default () => {
     <Stack tokens={{ childrenGap: 15, padding: 15 }}>
       <TitleBar />
       <Messages />
-
       <Router>
         <Switch>
           <Route path="/scards/:id" children={<ScardPageRoute />} />

@@ -1,3 +1,5 @@
+import React from "react";
+
 import {
   TextField,
   Text,
@@ -6,7 +8,7 @@ import {
   DefaultButton,
 } from "@fluentui/react";
 import { Card } from "@uifabric/react-cards";
-import * as React from "react";
+
 import { getStudyNotes, saveStudyNotes } from "@main/data/studyNotes";
 
 export interface StudyNotesProps {}
@@ -18,7 +20,7 @@ export interface StudyNotesState {
 class StudyNotes extends React.Component<StudyNotesProps, StudyNotesState> {
   constructor(props: StudyNotesProps) {
     super(props);
-    this.state = { txt: "" };
+    this.state = { txt: "Loading ..." };
     this.loadStudyNotes();
   }
 

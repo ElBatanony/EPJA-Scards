@@ -3,17 +3,20 @@ import { getScards, addScard } from "@main/data/main";
 
 import Scard from "@main/components/Scard";
 
-import { DialogType, PrimaryButton, Stack, Text } from "office-ui-fabric-react";
+import {
+  DialogType,
+  PrimaryButton,
+  Spinner,
+  Stack,
+} from "office-ui-fabric-react";
 
-import NewScardForm from "@main/components/NewScardForm";
 import ScardDialogForm from "./ScardDialogForm";
 
 interface ScardsProps {}
 
 interface ScardsState {
-  hello?: string;
-  scards: Array<any>;
-  editDialogHidden: boolean;
+  scards?: Array<any>;
+  addScardDialogHidden: boolean;
 }
 
 const AddDialogContentProps = {
@@ -28,9 +31,7 @@ class Scards extends React.Component<ScardsProps, ScardsState> {
   constructor(props) {
     super(props);
     this.state = {
-      hello: "No Scards",
-      scards: [],
-      editDialogHidden: true,
+      addScardDialogHidden: true,
     };
     this.updateScards();
   }
@@ -50,9 +51,9 @@ class Scards extends React.Component<ScardsProps, ScardsState> {
     this.updateScards();
   };
 
-  toggleEditDialog = () => {
+  toggleAddDialog = () => {
     this.setState((state, props) => ({
-      editDialogHidden: !state.editDialogHidden,
+      addScardDialogHidden: !state.addScardDialogHidden,
     }));
   };
 
@@ -79,22 +80,17 @@ class Scards extends React.Component<ScardsProps, ScardsState> {
           horizontalAlign="center"
         >
           <Stack.Item>
-            {this.state.scards.length == 0 ? (
-              <Text>Loading ...</Text>
-            ) : (
-              scardsComps
-            )}
+            {this.state.scards ? <Spinner size={3} /> : scardsComps}
           </Stack.Item>
-          {/* <NewScardForm addScard={this.addScard} /> */}
           <Stack.Item>
-            <PrimaryButton text="Add Scard" onClick={this.toggleEditDialog} />
+            <PrimaryButton text="Add Scard" onClick={this.toggleAddDialog} />
           </Stack.Item>
         </Stack>
         <ScardDialogForm
-          hidden={this.state.editDialogHidden}
+          hidden={this.state.addScardDialogHidden}
           scard={{ newQ: "", newA: "" }}
           dialogContentProps={AddDialogContentProps}
-          toggleDialog={this.toggleEditDialog}
+          toggleDialog={this.toggleAddDialog}
           action={this.addScard}
         />
       </>
