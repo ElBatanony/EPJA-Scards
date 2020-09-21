@@ -65,11 +65,12 @@ class Scards extends React.Component<ScardsProps, ScardsState> {
         horizontalAlign="center"
         tokens={{ childrenGap: 10, padding: 10 }}
       >
-        {this.state.scards.map((scard) => (
-          <Stack.Item key={scard.id}>
-            <Scard scard={scard} updateScards={this.updateScards} />
-          </Stack.Item>
-        ))}
+        {this.state.scards &&
+          this.state.scards.map((scard) => (
+            <Stack.Item key={scard.id}>
+              <Scard scard={scard} updateScards={this.updateScards} />
+            </Stack.Item>
+          ))}
       </Stack>
     );
 
@@ -80,7 +81,7 @@ class Scards extends React.Component<ScardsProps, ScardsState> {
           horizontalAlign="center"
         >
           <Stack.Item>
-            {this.state.scards ? <Spinner size={3} /> : scardsComps}
+            {this.state.scards ? scardsComps : <Spinner size={3} />}
           </Stack.Item>
           <Stack.Item>
             <PrimaryButton text="Add Scard" onClick={this.toggleAddDialog} />
