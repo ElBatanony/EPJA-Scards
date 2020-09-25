@@ -33,8 +33,11 @@ class Scards extends React.Component<ScardsProps, ScardsState> {
     this.state = {
       addScardDialogHidden: true,
     };
-    this.updateScards();
   }
+
+  componentDidMount = () => {
+    this.updateScards();
+  };
 
   updateScards = async () => {
     console.log("Fetching scards");

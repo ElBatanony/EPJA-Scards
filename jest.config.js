@@ -11,16 +11,15 @@ module.exports = {
   // The directory where Jest should output its coverage files
   coverageDirectory: "coverage",
 
+  collectCoverageFrom: ["<rootDir>/src/**/*.tsx", "!<rootDir>/src/main.tsx"],
+
   moduleNameMapper: {
     "\\.(png|svg|jpg|jpeg)$": "<rootDir>/__mocks__/imageTransformer.js",
     "@ijl.cli": "<rootDir>/__mocks__/cli.js",
-    "^@main(.*)$": "<rootDir>/src/$1"
+    "^@main(.*)$": "<rootDir>/src/$1",
+    "^react(.*)$": "<rootDir>/node_modules/react$1",
   },
-  snapshotSerializers: [
-    //'enzyme-to-json/serializer'
-  ],
+  snapshotSerializers: ["enzyme-to-json/serializer"],
 
-  testPathIgnorePatterns : [
-    "<rootDir>/cypress/*" 
-  ]
+  testPathIgnorePatterns: ["<rootDir>/cypress/*"],
 };

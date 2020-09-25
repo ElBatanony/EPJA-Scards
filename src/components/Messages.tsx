@@ -1,13 +1,7 @@
 import React from "react";
 import { initFlow, nextState, prevState } from "@main/data/workflow";
 
-import {
-  Text,
-  DefaultButton,
-  Stack,
-  DefaultPalette,
-  Spinner,
-} from "office-ui-fabric-react";
+import { Text, DefaultButton, Stack, Spinner } from "office-ui-fabric-react";
 import { Card } from "@uifabric/react-cards";
 
 export interface MessagesProps {}
@@ -24,8 +18,6 @@ const messages = {
 
 const stackItemStyles = {
   root: {
-    background: DefaultPalette.themePrimary,
-    color: DefaultPalette.white,
     padding: 5,
   },
 };

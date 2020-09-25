@@ -21,6 +21,9 @@ class StudyNotes extends React.Component<StudyNotesProps, StudyNotesState> {
   constructor(props: StudyNotesProps) {
     super(props);
     this.state = { txt: "Loading ..." };
+  }
+
+  componentDidMount() {
     this.loadStudyNotes();
   }
 

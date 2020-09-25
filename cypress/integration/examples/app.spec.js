@@ -1,9 +1,9 @@
-describe('Simple testing', function() {
-    it('just works', function () {
-        cy.visit('/');
-        
-        cy.get('#hello')
-            .invoke('text')
-            .should('match', /hello/);
-    });
+describe("Simple testing", function () {
+  it("just works", function () {
+    cy.visit("/scards");
+
+    cy.get("#welcome")
+      .invoke("text")
+      .should("match", /Welcome to Scards!/);
+  });
 });
