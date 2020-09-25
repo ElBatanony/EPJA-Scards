@@ -1,5 +1,5 @@
 import React from "react";
-import { getScards, addScard } from "@main/data/main";
+import { getScards, addScard } from "@main/data/scards";
 
 import Scard from "@main/components/Scard";
 

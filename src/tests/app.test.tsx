@@ -78,28 +78,98 @@ describe("App Test", () => {
       ],
     ];
 
+    const nextMessageResponse = [
+      [
+        "GET",
+        "/api/workflow",
+        { cmd: "next", name: "welcomeFlow" },
+        200,
+        { flowName: "welcomeFlow", stateName: "message2", sessionId: "123" },
+      ],
+    ];
+
+    const previousMessageResonse = [
+      [
+        "GET",
+        "/api/workflow",
+        { cmd: "back", name: "welcomeFlow" },
+        200,
+        { flowName: "welcomeFlow", stateName: "message1", sessionId: "123" },
+      ],
+    ];
+
+    const studyNotesSaveResponse = [
+      [
+        "POST",
+        "/api/studyNotes",
+        { sessionId: "123" },
+        200,
+        { studyNotes: "Hello Study Notes", sessionId: "123" },
+      ],
+    ];
+
+    const studyNotesLoadResponse = [
+      [
+        "GET",
+        "/api/studyNotes",
+        { sessionId: "123" },
+        200,
+        { studyNotes: "Hello Study Notes", sessionId: "123" },
+      ],
+    ];
+
     await multiplyRequest(mock, responses);
     app.update();
     mock.reset();
+
+    // Inital state check
     expect(app.find("TitleBar")).toMatchSnapshot();
     expect(app.find("Messages")).toMatchSnapshot();
     expect(app.find("Scards")).toMatchSnapshot();
     expect(app.find("StudyNotes")).toMatchSnapshot();
 
-    //await multiplyRequest(mock, responses);
+    // Clicking on Next Message
+    app.find("#id__3").simulate("click");
+    app.update();
+    await multiplyRequest(mock, nextMessageResponse);
+    app.update();
+    mock.reset();
+    expect(app.find("Messages")).toMatchSnapshot();
 
+    // Clicking on Previous Message
+    app.find("#id__0").simulate("click");
+    app.update();
+    await multiplyRequest(mock, previousMessageResonse);
+    app.update();
+    mock.reset();
+    expect(app.find("Messages")).toMatchSnapshot();
+
+    // Modifying, saving, and loading study notes
+    // Step 1: Modify and Save
+    app
+      .find("#TextField11")
+      .simulate("change", { target: { value: "Hello Study Notes" } });
+    app.update();
+    await multiplyRequest(mock, studyNotesSaveResponse);
+    app.update();
+    mock.reset();
+    expect(app.find("StudyNotes")).toMatchSnapshot();
+    // Step 2: Modify and Load
+    app
+      .find("#TextField11")
+      .simulate("change", { target: { value: "Something Different" } });
+    app.update();
+    await multiplyRequest(mock, studyNotesLoadResponse);
+    app.update();
+    mock.reset();
+    expect(app.find("StudyNotes")).toMatchSnapshot();
+
+    // Selecting the first scard
     app.find(".ms-Stack.ms-CardSection.css-86").at(0).simulate("click");
     app.update();
     await multiplyRequest(mock, scardResponse);
     app.update();
     mock.reset();
     expect(app.find("ScardPage")).toMatchSnapshot();
-
-    // app.find(".ms-Stack.ms-CardSection.css-86").at(0).simulate("click");
-    // app.update();
-    // await multiplyRequest(mock, scardResponse);
-    // app.update();
-    // mock.reset();
-    // expect(app).toMatchSnapshot();
   });
 });

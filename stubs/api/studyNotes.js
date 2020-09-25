@@ -14,7 +14,7 @@ const delayAnswer = (req, res, next) => {
 router.get(STUDY_NOTES_URL, delayAnswer, async (req, res) => {
   let sessionId = req.query.sessionId;
   console.log("Session id we have ", sessionId);
-  if (sessionId === undefined || session == null)
+  if (sessionId === undefined || sessionId == null)
     sessionId = await createSession();
   const session = await getSession(sessionId);
   res.send({ studyNotes: session.studyNotes, sessionId });

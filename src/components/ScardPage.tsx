@@ -1,6 +1,6 @@
 import React from "react";
 
-import { getScard } from "@main/data/main";
+import { getScard } from "@main/data/scards";
 
 import { DefaultButton, Spinner, Stack } from "@fluentui/react";
 

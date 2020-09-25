@@ -11,7 +11,11 @@ module.exports = {
   // The directory where Jest should output its coverage files
   coverageDirectory: "coverage",
 
-  collectCoverageFrom: ["<rootDir>/src/**/*.tsx", "!<rootDir>/src/main.tsx"],
+  collectCoverageFrom: [
+    "<rootDir>/src/**/*.tsx",
+    "<rootDir>/src/**/*.ts",
+    "!<rootDir>/src/main.tsx",
+  ],
 
   moduleNameMapper: {
     "\\.(png|svg|jpg|jpeg)$": "<rootDir>/__mocks__/imageTransformer.js",

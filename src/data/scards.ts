@@ -1,37 +1,7 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
-import { authHeader } from "@main/data/auth-header";
+import axios, { AxiosResponse } from "axios";
 import { getConfig } from "@ijl/cli";
 
 const mainApiBaseUrl = getConfig()["scards.api.base"];
-
-const getData = async () => {
-  // console.log('Starting Data Actions');
-  //getFetchAction();
-
-  const requestProps: AxiosRequestConfig = {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      ...authHeader(),
-    },
-  };
-
-  try {
-    const answer: AxiosResponse = await axios(
-      `${mainApiBaseUrl}/getMainData`,
-      requestProps
-    );
-
-    if (answer.data?.status?.code === 0) {
-      //getSuccessAction(answer.data);
-    } else {
-      //getErrorAction();
-    }
-  } catch (error) {
-    console.error("Axios Error", error);
-    //getErrorAction();
-  }
-};
 
 const getScards = async () => {
   const answer: AxiosResponse = await axios(`${mainApiBaseUrl}/scards`);
@@ -71,4 +41,4 @@ const editScard = async (scardId, q, a) => {
   return answer.data;
 };
 
-export { getData, getScards, getScard, deleteScard, addScard, editScard };
+export { getScards, getScard, deleteScard, addScard, editScard };

@@ -4,7 +4,7 @@ import { Text, PrimaryButton, DialogType } from "office-ui-fabric-react";
 
 import { Card } from "@uifabric/react-cards";
 
-import { deleteScard, editScard } from "@main/data/main";
+import { deleteScard, editScard } from "@main/data/scards";
 
 import { Redirect } from "react-router-dom";
 import ScardDialogForm from "./ScardDialogForm";
