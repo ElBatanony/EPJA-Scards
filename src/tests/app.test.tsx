@@ -171,5 +171,13 @@ describe("App Test", () => {
     app.update();
     mock.reset();
     expect(app.find("ScardPage")).toMatchSnapshot();
+
+    // Click Edit Scard and Cancel
+    app.find("#id__33").simulate("click"); // Edit Button
+    app.update();
+    expect(app.find(".content-100")).toMatchSnapshot();
+    app.find("#id__50").simulate("click"); // Cancel Button
+    app.update();
+    expect(app.find(".ms-Stack.ms-CardSection.css-86")).toMatchSnapshot();
   });
 });
