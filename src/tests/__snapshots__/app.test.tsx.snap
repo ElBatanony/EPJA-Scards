@@ -40,13 +40,13 @@ Array [
     <span
       className="ScardQ css-71"
     >
-      Question 1
+      Question 1 updated
     </span>
   </Text>,
   <span
     className="ScardQ css-71"
   >
-    Question 1
+    Question 1 updated
   </span>,
   <Text
     className="ScardQ"
@@ -182,7 +182,7 @@ exports[`App Test Render and test app 8`] = `
   onFocus={[Function]}
   onInput={[Function]}
   type="text"
-  value="Question 1"
+  value="Question 1 updated"
 />
 `;
 
@@ -196,13 +196,13 @@ Array [
     <span
       className="ScardQ css-71"
     >
-      Question 1
+      Question 1 updated
     </span>
   </Text>,
   <span
     className="ScardQ css-71"
   >
-    Question 1
+    Question 1 updated
   </span>,
 ]
 `;

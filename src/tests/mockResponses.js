@@ -1,3 +1,5 @@
+let scards = require("../../stubs/api/scardsData");
+
 const initResponses = [
   [
     "GET",
@@ -10,7 +12,7 @@ const initResponses = [
       stateName: "message1",
     },
   ],
-  ["GET", "/api/scards", void 0, 200, require("../../stubs/api/scardsData")],
+  ["GET", "/api/scards", void 0, 200, scards],
   [
     "GET",
     "/api/studyNotes",
@@ -20,18 +22,14 @@ const initResponses = [
   ],
 ];
 
-const scardResponse = [
-  [
-    "GET",
-    "/api/scards/1",
-    void 0,
-    200,
-    {
-      id: "1",
-      q: "Question 1",
-      a: "Answer 1",
-    },
-  ],
+const scardResponse = [["GET", "/api/scards/1", void 0, 200, scards[0]]];
+
+let updatedScards = scards;
+updatedScards[0].q = "Question 1 updated";
+const updatedScardsResponse = [["PUT", "/api/scards/1", void 0, 200, scards]];
+
+const updatedScardResponse = [
+  ["GET", "/api/scards/1", void 0, 200, updatedScards[0]],
 ];
 
 const nextMessageResponse = [
@@ -81,4 +79,6 @@ module.exports = {
   previousMessageResonse,
   studyNotesSaveResponse,
   studyNotesLoadResponse,
+  updatedScardResponse,
+  updatedScardsResponse,
 };

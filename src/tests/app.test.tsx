@@ -1,11 +1,9 @@
 import App from "../app";
 import React from "react";
-import { mount, configure, shallow } from "enzyme";
-import { act } from "react-dom/test-utils";
-import Adapter from "enzyme-adapter-react-16";
-import axios from "axios";
-import MockAdapter from "axios-mock-adapter";
-import _ from "lodash";
+import { mount } from "enzyme";
+
+import { initMock, makeRequest } from "./mockUtils";
+
 import {
   initResponses,
   nextMessageResponse,
@@ -13,40 +11,21 @@ import {
   scardResponse,
   studyNotesLoadResponse,
   studyNotesSaveResponse,
+  updatedScardResponse,
+  updatedScardsResponse,
 } from "./mockResponses";
-
-configure({ adapter: new Adapter() });
-
-const multiplyRequest = async (mock, responses) => {
-  await act(async () => {
-    await mock.onAny().reply((config) => {
-      // console.log("responses", responses);
-      const [method, url, params, ...response] = responses.shift();
-      // console.log("config", config);
-      if (config.url.includes(url) && config.method.toUpperCase() === method) {
-        if (!config.params || _.isEqual(config.params, params)) return response;
-        console.log(config.params, params);
-        return [500, {}];
-      }
-      console.log(config.url, config.method);
-      return [500, {}];
-    });
-  });
-};
 
 describe("App Test", () => {
   let mock;
 
   beforeEach(() => {
-    mock = new MockAdapter(axios);
+    mock = initMock();
   });
 
   it("Render and test app", async () => {
     const app = mount(<App />);
 
-    await multiplyRequest(mock, initResponses);
-    app.update();
-    mock.reset();
+    await makeRequest(app, mock, initResponses);
 
     // Inital state check
     expect(app.find("Text#welcomeToScards")).toMatchSnapshot();
@@ -57,53 +36,44 @@ describe("App Test", () => {
 
     // Clicking on Next Message
     app.find("button#NextMsgBtn").simulate("click");
-    app.update();
-    await multiplyRequest(mock, nextMessageResponse);
-    app.update();
-    mock.reset();
+    await makeRequest(app, mock, nextMessageResponse);
     expect(app.find("Text#MsgText")).toMatchSnapshot();
 
     // Clicking on Previous Message
     app.find("button#PrevMsgBtn").simulate("click");
-    app.update();
-    await multiplyRequest(mock, previousMessageResonse);
-    app.update();
-    mock.reset();
+    await makeRequest(app, mock, previousMessageResonse);
     expect(app.find("Text#MsgText")).toMatchSnapshot();
 
     // Loading, modifying and saving study notes
     app.find("button#LoadStudyNotes").simulate("click");
-    app.update();
-    await multiplyRequest(mock, studyNotesLoadResponse);
-    app.update();
-    mock.reset();
+    await makeRequest(app, mock, studyNotesLoadResponse);
     app
       .find("textarea#StudyNotesTextField")
       .simulate("change", { target: { value: "Hello Study Notes" } });
-    app.update();
     app.find("button#SaveStudyNotes").simulate("click");
-    app.update();
-    await multiplyRequest(mock, studyNotesSaveResponse);
-    app.update();
-    mock.reset();
+    await makeRequest(app, mock, studyNotesSaveResponse);
     expect(app.find("textarea#StudyNotesTextField")).toMatchSnapshot();
 
     // Selecting the first scard
     app.find(".ScardCard").at(0).find('Stack[role="button"]').simulate("click");
-    app.update();
-    await multiplyRequest(mock, scardResponse);
-    app.update();
-    mock.reset();
+    await makeRequest(app, mock, scardResponse);
     expect(app.find(".ScardCard")).toHaveLength(1);
 
-    // Click Edit Scard and Cancel
+    // Edit Scard
     app.find("button#EditScardBtn").simulate("click");
     app.update();
     expect(
       app.find("#ScardDialog").find("input#newScardQuestion")
     ).toMatchSnapshot();
-    app.find("button#ScardDialogCancelBtn").simulate("click");
+    app
+      .find("input#newScardQuestion")
+      .simulate("change", { target: { value: "Question 1 updated" } });
     app.update();
+    app.find("button#ScardDialogActionBtn").simulate("click");
+    await makeRequest(app, mock, [
+      updatedScardsResponse[0],
+      updatedScardResponse[0],
+    ]);
     expect(app.find(".ScardQ")).toMatchSnapshot();
   });
 });
