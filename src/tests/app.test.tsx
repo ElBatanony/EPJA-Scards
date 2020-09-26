@@ -13,6 +13,7 @@ import {
   studyNotesSaveResponse,
   updatedScardResponse,
   updatedScardsResponse,
+  deleteScardResponse,
 } from "./mockResponses";
 
 describe("App Test", () => {
@@ -75,5 +76,9 @@ describe("App Test", () => {
       updatedScardResponse[0],
     ]);
     expect(app.find(".ScardQ")).toMatchSnapshot();
+
+    // Delete Scard
+    app.find("button#DeleteScardBtn").simulate("click");
+    await makeRequest(app, mock, deleteScardResponse);
   });
 });

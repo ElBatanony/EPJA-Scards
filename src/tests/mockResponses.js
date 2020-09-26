@@ -32,6 +32,12 @@ const updatedScardResponse = [
   ["GET", "/api/scards/1", void 0, 200, updatedScards[0]],
 ];
 
+let deletedScards = scards.slice().splice(0, 1);
+const deleteScardResponse = [
+  ["DELETE", "/api/scards/1", void 0, 200, deletedScards],
+  ["GET", "/api/scards", void 0, 200, deletedScards],
+];
+
 const nextMessageResponse = [
   [
     "GET",
@@ -81,4 +87,5 @@ module.exports = {
   studyNotesLoadResponse,
   updatedScardResponse,
   updatedScardsResponse,
+  deleteScardResponse,
 };
