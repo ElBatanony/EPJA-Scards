@@ -87,7 +87,11 @@ class Scards extends React.Component<ScardsProps, ScardsState> {
             {this.state.scards ? scardsComps : <Spinner size={3} />}
           </Stack.Item>
           <Stack.Item>
-            <PrimaryButton text="Add Scard" onClick={this.toggleAddDialog} />
+            <PrimaryButton
+              id="addScardBtn"
+              text="Add Scard"
+              onClick={this.toggleAddDialog}
+            />
           </Stack.Item>
         </Stack>
         <ScardDialogForm

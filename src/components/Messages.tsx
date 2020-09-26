@@ -65,7 +65,7 @@ class Messages extends React.Component<MessagesProps, MessagesState> {
         <Stack horizontal horizontalAlign="space-evenly" verticalAlign="center">
           <Stack.Item>
             <DefaultButton
-              id="PreviousMsgBtn"
+              id="PrevMsgBtn"
               text="Previous Message"
               onClick={this.prevMessage}
             />

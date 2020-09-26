@@ -47,9 +47,8 @@ class ScardDialogForm extends React.Component<
   };
 
   render() {
-    const scardId = this.props.scard.id;
     return (
-      <div id={"ScardDialog" + scardId}>
+      <div id={"ScardDialog"}>
         <Dialog
           hidden={this.props.hidden}
           onDismiss={this.props.toggleDialog}
@@ -70,9 +69,13 @@ class ScardDialogForm extends React.Component<
             onChange={this.updateA}
           />
           <DialogFooter>
-            <PrimaryButton onClick={this.applyAction} text="Save" />
+            <PrimaryButton
+              id="ScardDialogActionBtn"
+              onClick={this.applyAction}
+              text="Save"
+            />
             <DefaultButton
-              id={"ScardDialogCancelBtn" + scardId}
+              id={"ScardDialogCancelBtn"}
               onClick={this.props.toggleDialog}
               text="Cancel"
             />

@@ -4,6 +4,7 @@ const sessions = {};
 
 const createSession = async () => {
   let newSessionId = uuidv4();
+  console.log("Created a new session id", newSessionId);
   sessions[newSessionId] = {};
   return newSessionId;
 };
@@ -21,7 +22,10 @@ const setSessionWorkflow = async (sessionId, newWorkflow) => {
 };
 
 const setSessionStudyNotes = async (sessionId, newStudyNotes) => {
-  sessions[sessionId].studyNotes = newStudyNotes;
+  let currentSession = await getSession(sessionId);
+  currentSession.studyNotes = newStudyNotes;
+  sessions[sessionId] = currentSession;
+  console.log("Saved Study Notes", sessions[sessionId]);
 };
 
 module.exports = {

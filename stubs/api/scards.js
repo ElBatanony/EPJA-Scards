@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const bodyParser = require("body-parser");
-const { query } = require("express");
 const fs = require("fs");
 const path = require("path");
 const { v4: uuidv4 } = require("uuid");
@@ -10,7 +9,6 @@ router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
 
 const SCARDS_URL = "/api/scards";
-let idCounter = 10;
 
 var scards;
 

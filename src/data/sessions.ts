@@ -4,7 +4,7 @@ const setSessionId = (newSessionId) => {
 
 const getSessionId = () => {
   let ret = localStorage.getItem("sessionId");
-  if (ret == "") ret = null;
+  if (ret == "") ret = "null";
   return ret;
 };
 

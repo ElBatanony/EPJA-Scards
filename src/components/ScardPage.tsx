@@ -37,8 +37,6 @@ class ScardPage extends React.Component<ScardPageProps, ScardPageState> {
   };
 
   render() {
-    let id = this.props.scardId;
-
     return (
       <Stack horizontalAlign="center" tokens={{ childrenGap: 10 }}>
         <Stack.Item>
@@ -54,7 +52,7 @@ class ScardPage extends React.Component<ScardPageProps, ScardPageState> {
         </Stack.Item>
         <Stack.Item>
           <Link to="/scards">
-            <DefaultButton text="Back" />
+            <DefaultButton id="backBtn" text="Back" />
           </Link>
         </Stack.Item>
       </Stack>

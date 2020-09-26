@@ -20,11 +20,11 @@ export interface StudyNotesState {
 class StudyNotes extends React.Component<StudyNotesProps, StudyNotesState> {
   constructor(props: StudyNotesProps) {
     super(props);
-    this.state = { txt: "Loading ..." };
+    this.state = { txt: "" };
   }
 
   componentDidMount() {
-    this.loadStudyNotes();
+    //this.loadStudyNotes();
   }
 
   updateNotes = (event) => {
@@ -59,7 +59,11 @@ class StudyNotes extends React.Component<StudyNotesProps, StudyNotesState> {
               />
             </Card.Section>
             <Card.Section>
-              <DefaultButton text="Load" onClick={this.loadStudyNotes} />
+              <DefaultButton
+                id="LoadStudyNotes"
+                text="Load"
+                onClick={this.loadStudyNotes}
+              />
               <PrimaryButton
                 id="SaveStudyNotes"
                 text="Save"
