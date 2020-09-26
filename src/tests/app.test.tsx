@@ -11,6 +11,7 @@ import {
   nextMessageResponse,
   previousMessageResonse,
   scardResponse,
+  studyNotesLoadResponse,
   studyNotesSaveResponse,
 } from "./mockResponses";
 
@@ -50,8 +51,7 @@ describe("App Test", () => {
     // Inital state check
     expect(app.find("Text#welcomeToScards")).toMatchSnapshot();
     expect(app.find("Text#MsgText")).toMatchSnapshot();
-    expect(app.find("Text#ScardQ1")).toMatchSnapshot();
-    expect(app.find("Text#ScardA1")).toMatchSnapshot();
+    expect(app.find(".ScardQ")).toMatchSnapshot();
     expect(app.find("textarea#StudyNotesTextField")).toMatchSnapshot();
     expect(app.find(".ScardCard")).toHaveLength(5);
 
@@ -64,14 +64,19 @@ describe("App Test", () => {
     expect(app.find("Text#MsgText")).toMatchSnapshot();
 
     // Clicking on Previous Message
-    app.find("button#PreviousMsgBtn").simulate("click");
+    app.find("button#PrevMsgBtn").simulate("click");
     app.update();
     await multiplyRequest(mock, previousMessageResonse);
     app.update();
     mock.reset();
     expect(app.find("Text#MsgText")).toMatchSnapshot();
 
-    // Modifying and saving study notes
+    // Loading, modifying and saving study notes
+    app.find("button#LoadStudyNotes").simulate("click");
+    app.update();
+    await multiplyRequest(mock, studyNotesLoadResponse);
+    app.update();
+    mock.reset();
     app
       .find("textarea#StudyNotesTextField")
       .simulate("change", { target: { value: "Hello Study Notes" } });
@@ -84,7 +89,7 @@ describe("App Test", () => {
     expect(app.find("textarea#StudyNotesTextField")).toMatchSnapshot();
 
     // Selecting the first scard
-    app.find("#ScardCard1").find('Stack[role="button"]').simulate("click");
+    app.find(".ScardCard").at(0).find('Stack[role="button"]').simulate("click");
     app.update();
     await multiplyRequest(mock, scardResponse);
     app.update();
@@ -92,13 +97,13 @@ describe("App Test", () => {
     expect(app.find(".ScardCard")).toHaveLength(1);
 
     // Click Edit Scard and Cancel
-    app.find("button#EditScardBtn1").simulate("click");
+    app.find("button#EditScardBtn").simulate("click");
     app.update();
     expect(
-      app.find("#ScardDialog1").find("input#newScardQuestion")
+      app.find("#ScardDialog").find("input#newScardQuestion")
     ).toMatchSnapshot();
-    app.find("button#ScardDialogCancelBtn1").simulate("click");
+    app.find("button#ScardDialogCancelBtn").simulate("click");
     app.update();
-    expect(app.find("Text#ScardQ1")).toMatchSnapshot();
+    expect(app.find(".ScardQ")).toMatchSnapshot();
   });
 });

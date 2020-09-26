@@ -2,7 +2,7 @@ const initResponses = [
   [
     "GET",
     "/api/workflow",
-    { cmd: "start", name: "welcomeFlow" },
+    { cmd: "start", name: "welcomeFlow", sessionId: "null" },
     200,
     {
       flowName: "welcomeFlow",
@@ -54,6 +54,16 @@ const previousMessageResonse = [
   ],
 ];
 
+const studyNotesLoadResponse = [
+  [
+    "GET",
+    "/api/studyNotes",
+    { sessionId: "123" },
+    200,
+    { studyNotes: "", sessionId: "123" },
+  ],
+];
+
 const studyNotesSaveResponse = [
   [
     "POST",
@@ -70,4 +80,5 @@ module.exports = {
   nextMessageResponse,
   previousMessageResonse,
   studyNotesSaveResponse,
+  studyNotesLoadResponse,
 };
