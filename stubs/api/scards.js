@@ -4,6 +4,7 @@ const { query } = require("express");
 const fs = require("fs");
 const path = require("path");
 const { v4: uuidv4 } = require("uuid");
+const { delayAnswer } = require("./utils");
 
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
@@ -19,10 +20,6 @@ const loadJson = (filepath, encoding = "utf8") =>
   );
 
 scards = loadJson("./scardsData");
-
-const delayAnswer = (req, res, next) => {
-  setTimeout(next, 300);
-};
 
 router.get(SCARDS_URL, delayAnswer, (req, res) => {
   if (scards == null) scards = loadJson("./scardsData");

@@ -1,15 +1,13 @@
 const router = require("express").Router();
 const workflow = require("./workflow.json");
 const { v4: uuidv4 } = require("uuid");
+const { delayAnswer } = require("../utils");
+
 const {
   createSession,
   getSession,
   setSessionWorkflow,
 } = require("./../sessions");
-
-const delayAnswer = (req, res, next) => {
-  setTimeout(next, 300);
-};
 
 router.get("/api/workflow", delayAnswer, async (req, res) => {
   const { cmd, name, data } = req.query;
