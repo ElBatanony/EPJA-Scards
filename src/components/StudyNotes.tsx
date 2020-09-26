@@ -51,6 +51,7 @@ class StudyNotes extends React.Component<StudyNotesProps, StudyNotesState> {
             <Card.Section>
               <Text variant="xLarge">Study Notes</Text>
               <TextField
+                id="StudyNotesTextField"
                 multiline
                 autoAdjustHeight
                 value={this.state.txt}
@@ -59,7 +60,11 @@ class StudyNotes extends React.Component<StudyNotesProps, StudyNotesState> {
             </Card.Section>
             <Card.Section>
               <DefaultButton text="Load" onClick={this.loadStudyNotes} />
-              <PrimaryButton text="Save" onClick={this.saveStudyNotes} />
+              <PrimaryButton
+                id="SaveStudyNotes"
+                text="Save"
+                onClick={this.saveStudyNotes}
+              />
             </Card.Section>
           </Card>
         </Stack.Item>

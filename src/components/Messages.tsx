@@ -26,8 +26,11 @@ class Messages extends React.Component<MessagesProps, MessagesState> {
   constructor(props: MessagesProps) {
     super(props);
     this.state = {};
-    this.initMessages();
   }
+
+  componentDidMount = () => {
+    this.initMessages();
+  };
 
   initMessages = async () => {
     const initState = await initFlow("welcomeFlow");
@@ -61,7 +64,11 @@ class Messages extends React.Component<MessagesProps, MessagesState> {
       <Stack>
         <Stack horizontal horizontalAlign="space-evenly" verticalAlign="center">
           <Stack.Item>
-            <DefaultButton text="Previous Message" onClick={this.prevMessage} />
+            <DefaultButton
+              id="PreviousMsgBtn"
+              text="Previous Message"
+              onClick={this.prevMessage}
+            />
           </Stack.Item>
           <Stack.Item>
             <Card horizontal tokens={{ padding: 25 }}>
@@ -69,13 +76,19 @@ class Messages extends React.Component<MessagesProps, MessagesState> {
                 {this.state.message == undefined ? (
                   <Spinner size={3} />
                 ) : (
-                  <Text variant="large">{messages[this.state.message]}</Text>
+                  <Text id="MsgText" variant="large">
+                    {messages[this.state.message]}
+                  </Text>
                 )}
               </Card.Section>
             </Card>
           </Stack.Item>
           <Stack.Item>
-            <DefaultButton text="Next Message" onClick={this.nextMessage} />
+            <DefaultButton
+              id="NextMsgBtn"
+              text="Next Message"
+              onClick={this.nextMessage}
+            />
           </Stack.Item>
         </Stack>
       </Stack>

@@ -21,6 +21,9 @@ class ScardPage extends React.Component<ScardPageProps, ScardPageState> {
     this.state = {
       scard: null,
     };
+  }
+
+  componentDidMount() {
     this.getScard();
   }
 

@@ -47,31 +47,38 @@ class ScardDialogForm extends React.Component<
   };
 
   render() {
+    const scardId = this.props.scard.id;
     return (
-      <Dialog
-        hidden={this.props.hidden}
-        onDismiss={this.props.toggleDialog}
-        dialogContentProps={this.props.dialogContentProps}
-      >
-        <TextField
-          id="newScardQuestion"
-          label="Question"
-          value={this.state.newQ}
-          onChange={this.updateQ}
-        />
-        <TextField
-          id="newScardAnswer"
-          label="Answer"
-          multiline
-          rows={3}
-          value={this.state.newA}
-          onChange={this.updateA}
-        />
-        <DialogFooter>
-          <PrimaryButton onClick={this.applyAction} text="Save" />
-          <DefaultButton onClick={this.props.toggleDialog} text="Cancel" />
-        </DialogFooter>
-      </Dialog>
+      <div id={"ScardDialog" + scardId}>
+        <Dialog
+          hidden={this.props.hidden}
+          onDismiss={this.props.toggleDialog}
+          dialogContentProps={this.props.dialogContentProps}
+        >
+          <TextField
+            id="newScardQuestion"
+            label="Question"
+            value={this.state.newQ}
+            onChange={this.updateQ}
+          />
+          <TextField
+            id="newScardAnswer"
+            label="Answer"
+            multiline
+            rows={3}
+            value={this.state.newA}
+            onChange={this.updateA}
+          />
+          <DialogFooter>
+            <PrimaryButton onClick={this.applyAction} text="Save" />
+            <DefaultButton
+              id={"ScardDialogCancelBtn" + scardId}
+              onClick={this.props.toggleDialog}
+              text="Cancel"
+            />
+          </DialogFooter>
+        </Dialog>
+      </div>
     );
   }
 }

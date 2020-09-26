@@ -14,7 +14,7 @@ class TitleBar extends React.Component<TitleBarProps, TitleBarState> {
   render() {
     return (
       <Stack horizontalAlign="center">
-        <Text id="welcome" variant="superLarge">
+        <Text id="welcomeToScards" variant="superLarge">
           Welcome to Scards!
         </Text>
         <br />

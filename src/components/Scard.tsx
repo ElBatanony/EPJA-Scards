@@ -70,7 +70,8 @@ class Scard extends React.Component<ScardProps, ScardState> {
   };
 
   render() {
-    let scardUrl = "/scards/" + this.props.scard.id;
+    const scardId = this.props.scard.id;
+    let scardUrl = "/scards/" + scardId;
 
     if (this.state.redirectToScardPage) {
       return <Redirect push to={scardUrl} />;
@@ -81,15 +82,29 @@ class Scard extends React.Component<ScardProps, ScardState> {
     }
 
     return (
-      <>
+      <div id={"ScardCard" + scardId} className="ScardCard">
         <Card tokens={{ childrenMargin: 15 }} onClick={this.goToScardPage}>
           <Card.Section horizontalAlign="stretch">
-            <Text variant="xLarge">{this.props.scard.q}</Text> <br />
-            <Text variant="medium">{this.props.scard.a}</Text> <br />
+            <Text id={"ScardQ" + scardId} variant="xLarge">
+              {this.props.scard.q}
+            </Text>{" "}
+            <br />
+            <Text id={"ScardA" + scardId} variant="medium">
+              {this.props.scard.a}
+            </Text>{" "}
+            <br />
             {this.state.inScardPage == true && (
               <>
-                <PrimaryButton text="Edit" onClick={this.toggleEditDialog} />
-                <PrimaryButton text="Delete" onClick={this.deleteScard} />
+                <PrimaryButton
+                  id={"EditScardBtn" + scardId}
+                  text="Edit"
+                  onClick={this.toggleEditDialog}
+                />
+                <PrimaryButton
+                  id={"DeleteScardBtn" + scardId}
+                  text="Delete"
+                  onClick={this.deleteScard}
+                />
               </>
             )}
           </Card.Section>
@@ -101,7 +116,7 @@ class Scard extends React.Component<ScardProps, ScardState> {
           toggleDialog={this.toggleEditDialog}
           action={this.editScard}
         />
-      </>
+      </div>
     );
   }
 }

@@ -6,6 +6,13 @@ import Adapter from "enzyme-adapter-react-16";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import _ from "lodash";
+import {
+  initResponses,
+  nextMessageResponse,
+  previousMessageResonse,
+  scardResponse,
+  studyNotesSaveResponse,
+} from "./mockResponses";
 
 configure({ adapter: new Adapter() });
 
@@ -36,148 +43,62 @@ describe("App Test", () => {
   it("Render and test app", async () => {
     const app = mount(<App />);
 
-    const responses = [
-      [
-        "GET",
-        "/api/workflow",
-        { cmd: "start", name: "welcomeFlow" },
-        200,
-        {
-          flowName: "welcomeFlow",
-          sessionId: "123",
-          stateName: "message1",
-        },
-      ],
-      [
-        "GET",
-        "/api/scards",
-        void 0,
-        200,
-        require("../../stubs/api/scardsData"),
-      ],
-      [
-        "GET",
-        "/api/studyNotes",
-        { sessionId: "null" },
-        200,
-        { studyNotes: { txt: "hello" }, sessionId: "123" },
-      ],
-    ];
-
-    const scardResponse = [
-      [
-        "GET",
-        "/api/scards/1",
-        void 0,
-        200,
-        {
-          id: "1",
-          q: "Question 1",
-          a: "Answer 1",
-        },
-      ],
-    ];
-
-    const nextMessageResponse = [
-      [
-        "GET",
-        "/api/workflow",
-        { cmd: "next", name: "welcomeFlow" },
-        200,
-        { flowName: "welcomeFlow", stateName: "message2", sessionId: "123" },
-      ],
-    ];
-
-    const previousMessageResonse = [
-      [
-        "GET",
-        "/api/workflow",
-        { cmd: "back", name: "welcomeFlow" },
-        200,
-        { flowName: "welcomeFlow", stateName: "message1", sessionId: "123" },
-      ],
-    ];
-
-    const studyNotesSaveResponse = [
-      [
-        "POST",
-        "/api/studyNotes",
-        { sessionId: "123" },
-        200,
-        { studyNotes: "Hello Study Notes", sessionId: "123" },
-      ],
-    ];
-
-    const studyNotesLoadResponse = [
-      [
-        "GET",
-        "/api/studyNotes",
-        { sessionId: "123" },
-        200,
-        { studyNotes: "Hello Study Notes", sessionId: "123" },
-      ],
-    ];
-
-    await multiplyRequest(mock, responses);
+    await multiplyRequest(mock, initResponses);
     app.update();
     mock.reset();
 
     // Inital state check
-    expect(app.find("TitleBar")).toMatchSnapshot();
-    expect(app.find("Messages")).toMatchSnapshot();
-    expect(app.find("Scards")).toMatchSnapshot();
-    expect(app.find("StudyNotes")).toMatchSnapshot();
+    expect(app.find("Text#welcomeToScards")).toMatchSnapshot();
+    expect(app.find("Text#MsgText")).toMatchSnapshot();
+    expect(app.find("Text#ScardQ1")).toMatchSnapshot();
+    expect(app.find("Text#ScardA1")).toMatchSnapshot();
+    expect(app.find("textarea#StudyNotesTextField")).toMatchSnapshot();
+    expect(app.find(".ScardCard")).toHaveLength(5);
 
     // Clicking on Next Message
-    app.find("#id__3").simulate("click");
+    app.find("button#NextMsgBtn").simulate("click");
     app.update();
     await multiplyRequest(mock, nextMessageResponse);
     app.update();
     mock.reset();
-    expect(app.find("Messages")).toMatchSnapshot();
+    expect(app.find("Text#MsgText")).toMatchSnapshot();
 
     // Clicking on Previous Message
-    app.find("#id__0").simulate("click");
+    app.find("button#PreviousMsgBtn").simulate("click");
     app.update();
     await multiplyRequest(mock, previousMessageResonse);
     app.update();
     mock.reset();
-    expect(app.find("Messages")).toMatchSnapshot();
+    expect(app.find("Text#MsgText")).toMatchSnapshot();
 
-    // Modifying, saving, and loading study notes
-    // Step 1: Modify and Save
+    // Modifying and saving study notes
     app
-      .find("#TextField11")
+      .find("textarea#StudyNotesTextField")
       .simulate("change", { target: { value: "Hello Study Notes" } });
+    app.update();
+    app.find("button#SaveStudyNotes").simulate("click");
     app.update();
     await multiplyRequest(mock, studyNotesSaveResponse);
     app.update();
     mock.reset();
-    expect(app.find("StudyNotes")).toMatchSnapshot();
-    // Step 2: Modify and Load
-    app
-      .find("#TextField11")
-      .simulate("change", { target: { value: "Something Different" } });
-    app.update();
-    await multiplyRequest(mock, studyNotesLoadResponse);
-    app.update();
-    mock.reset();
-    expect(app.find("StudyNotes")).toMatchSnapshot();
+    expect(app.find("textarea#StudyNotesTextField")).toMatchSnapshot();
 
     // Selecting the first scard
-    app.find(".ms-Stack.ms-CardSection.css-86").at(0).simulate("click");
+    app.find("#ScardCard1").find('Stack[role="button"]').simulate("click");
     app.update();
     await multiplyRequest(mock, scardResponse);
     app.update();
     mock.reset();
-    expect(app.find("ScardPage")).toMatchSnapshot();
+    expect(app.find(".ScardCard")).toHaveLength(1);
 
     // Click Edit Scard and Cancel
-    app.find("#id__33").simulate("click"); // Edit Button
+    app.find("button#EditScardBtn1").simulate("click");
     app.update();
-    expect(app.find(".content-100")).toMatchSnapshot();
-    app.find("#id__50").simulate("click"); // Cancel Button
+    expect(
+      app.find("#ScardDialog1").find("input#newScardQuestion")
+    ).toMatchSnapshot();
+    app.find("button#ScardDialogCancelBtn1").simulate("click");
     app.update();
-    expect(app.find(".ms-Stack.ms-CardSection.css-86")).toMatchSnapshot();
+    expect(app.find("Text#ScardQ1")).toMatchSnapshot();
   });
 });
